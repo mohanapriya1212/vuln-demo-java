@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="vuln-demo-java" default="jar" basedir=".">
+  <property name="src.dir" value="src/main/java"/>
+  <property name="build.dir" value="build/classes"/>
+  <property name="lib.dir" value="lib"/>
+  <property name="dist.dir" value="dist"/>
+
+  <target name="init">
+    <mkdir dir="${build.dir}"/>
+    <mkdir dir="${lib.dir}"/>
+    <mkdir dir="${dist.dir}"/>
+
+    <!-- Download intentionally vulnerable dependencies -->
+    <get src="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.jar"
+         dest="${lib.dir}/log4j-core-2.14.1.jar" />
+    <get src="https://repo1.maven.org/maven2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar"
+         dest="${lib.dir}/commons-collections-3.2.1.jar" />
+    <get src="https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.9.9/jackson-databind-2.9.9.jar"
+         dest="${lib.dir}/jackson-databind-2.9.9.jar" />
+  </target>
+
+  <target name="compile" depends="init">
+    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
+      <classpath>
+        <fileset dir="${lib.dir}" includes="*.jar"/>
+      </classpath>
+    </javac>
+  </target>
+
+  <target name="jar" depends="compile">
+    <jar destfile="${dist.dir}/vuln-demo-java.jar" basedir="${build.dir}"/>
+  </target>
+
+  <target name="clean">
+    <delete dir="${build.dir}"/>
+    <delete dir="${dist.dir}"/>
+  </target>
+</project>

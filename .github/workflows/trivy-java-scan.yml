@@ -1,0 +1,42 @@
+name: Trivy Scan Java Ant Project
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  trivy-scan:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Java (for Ant build)
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Build Ant project (download vulnerable jars)
+        working-directory: ./vuln-demo-java
+        run: |
+          ant clean jar
+          ls -R
+
+      - name: Run Trivy scan on vuln-demo-java
+        uses: aquasecurity/trivy-action@master
+        with:
+          scan-type: 'fs'
+          scan-ref: './vuln-demo-java'
+          format: 'table'
+          output: 'trivy-results-java.txt'
+          severity: 'HIGH,CRITICAL'
+          exit-code: '1'          # ❗ Fail the job if HIGH or CRITICAL vulnerabilities found
+          ignore-unfixed: true
+
+      - name: Display scan results
+        if: always()
+        run: |
+          echo "===== Trivy Scan Results (vuln-demo-java) ====="
+          cat trivy-results-java.txt || echo "No result file found"
