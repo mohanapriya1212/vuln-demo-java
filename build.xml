@@ -20,11 +20,10 @@
   </target>
 
   <target name="compile" depends="init">
-    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
-      <classpath>
-        <fileset dir="${lib.dir}" includes="*.jar"/>
-      </classpath>
-    </javac>
+    <path id="complie.classpath">
+       <fileset dir="${lib.dir}" includes="*.jar"/>
+    </path>
+    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" classpathref="complie.classpath"/> 
   </target>
 
   <target name="jar" depends="compile">
