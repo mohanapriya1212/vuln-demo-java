@@ -19,7 +19,7 @@ jobs:
           java-version: '17'
 
       - name: Build Ant project (download vulnerable jars)
-        working-directory: ./vuln-demo-java
+        working-directory: ./vuln-demo-java/vuln-demo-java
         run: |
           ant clean jar
           ls -R
