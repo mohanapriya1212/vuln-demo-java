@@ -24,7 +24,6 @@ jobs:
       #   run: ls -l ./vuln-demo-java/lib
         
       - name: Build Ant project (download vulnerable jars)
-        working-directory: ./vuln-demo-java
         run: |
           ant clean jar
           ls -R
