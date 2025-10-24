@@ -7,23 +7,15 @@
 
   <target name="init">
     <mkdir dir="${build.dir}"/>
-    <mkdir dir="${lib.dir}"/>
     <mkdir dir="${dist.dir}"/>
 
-    <!-- Download intentionally vulnerable dependencies -->
-    <get src="https://repo1.maven.org/maven2/org/apache/logging/log4j/log4j-core/2.14.1/log4j-core-2.14.1.jar"
-         dest="${lib.dir}/log4j-core-2.14.1.jar" />
-    <get src="https://repo1.maven.org/maven2/commons-collections/commons-collections/3.2.1/commons-collections-3.2.1.jar"
-         dest="${lib.dir}/commons-collections-3.2.1.jar" />
-    <get src="https://repo1.maven.org/maven2/com/fasterxml/jackson/core/jackson-databind/2.9.9/jackson-databind-2.9.9.jar"
-         dest="${lib.dir}/jackson-databind-2.9.9.jar" />
   </target>
 
   <target name="compile" depends="init">
-    <path id="complie.classpath">
+    <path id="compile.classpath">
        <fileset dir="${lib.dir}" includes="*.jar"/>
     </path>
-    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" classpathref="complie.classpath"/> 
+    <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false" classpathref="compile.classpath"/> 
   </target>
 
   <target name="jar" depends="compile">
