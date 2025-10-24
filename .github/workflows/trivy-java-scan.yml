@@ -23,10 +23,10 @@ jobs:
       # - name: verify jar
       #   run: ls -l ./vuln-demo-java/lib
         
-      - name: Build Ant project (download vulnerable jars)
-        run: |
-          ant clean jar
-          ls -R
+      # - name: Build Ant project (download vulnerable jars)
+      #   run: |
+      #     ant clean jar
+      #     ls -R
 
       - name: Run Trivy scan on vuln-demo-java
         uses: aquasecurity/trivy-action@master
