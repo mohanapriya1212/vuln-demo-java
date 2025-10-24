@@ -17,7 +17,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-
+          
+      - name: verify jar
+        run: ls -l ./vuln-demo-java/lib
+        
       - name: Build Ant project (download vulnerable jars)
         working-directory: ./
         run: |
