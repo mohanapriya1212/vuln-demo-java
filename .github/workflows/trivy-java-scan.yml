@@ -32,7 +32,7 @@ jobs:
         uses: aquasecurity/trivy-action@master
         with:
           scan-type: 'fs'
-          scan-ref: './vuln-demo-java'
+          scan-ref: '.'
           format: 'table'
           output: 'trivy-results-java.txt'
           severity: 'HIGH,CRITICAL'
